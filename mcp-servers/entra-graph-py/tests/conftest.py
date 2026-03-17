@@ -13,11 +13,17 @@ _GRAPH_CLIENT_TARGETS = [
     "entra_graph_mcp.tools_apps.get_graph_client",
     "entra_graph_mcp.tools_diagnostics.get_graph_client",
     "entra_graph_mcp.tools_rbac.get_graph_client",
+    "entra_graph_mcp.tools_governance.get_graph_client",
+    "entra_graph_mcp.tools_id_protection.get_graph_client",
+    "entra_graph_mcp.tools_workload_id.get_graph_client",
 ]
 
 _CREDENTIAL_TARGETS = [
     "entra_graph_mcp.tools_rbac.get_credential",
     "entra_graph_mcp.tools_agent_identity.get_credential",
+    "entra_graph_mcp.tools_governance.get_credential",
+    "entra_graph_mcp.tools_id_protection.get_credential",
+    "entra_graph_mcp.tools_workload_id.get_credential",
 ]
 
 

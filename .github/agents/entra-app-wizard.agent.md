@@ -7,6 +7,8 @@ skills:
   - entra-admin-consent-permissions
   - azure-identity-py
   - azure-identity-dotnet
+  - entra-external-id
+  - entra-verified-id
 ---
 
 # Entra App Wizard Agent

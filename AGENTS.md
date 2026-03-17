@@ -17,6 +17,13 @@ Before generating code that interacts with Entra ID, load the relevant skill:
 - Audit/sign-in logs → `entra-audit-signin-logs`
 - Secret rotation → `entra-secret-certificate-lifecycle`
 - MSAL patterns → `entra-msal-deep-dive`
+- Identity Governance → `entra-identity-governance`
+- Authentication Methods → `entra-authentication-methods`
+- Verified ID → `entra-verified-id`
+- External ID / CIAM → `entra-external-id`
+- Private Access / ZTNA → `entra-private-access`
+- ID Protection → `entra-id-protection`
+- Workload Identity → `entra-workload-id`
 
 ## Core Principles
 
@@ -28,13 +35,13 @@ Before generating code that interacts with Entra ID, load the relevant skill:
 
 ## Skills
 
-14 skills in `.github/skills/` covering all Entra identity domains.
+21 skills in `.github/skills/` covering all Entra identity domains.
 
 ## MCP Servers
 
 | Server | Language | Scope |
 |--------|----------|-------|
-| `entra-graph-py` | Python (FastMCP) | Graph API: users, groups, apps, logs, RBAC, Agent ID |
+| `entra-graph-py` | Python (FastMCP) | Graph API: users, groups, apps, logs, RBAC, Agent ID, governance, ID protection, workload ID, auth methods |
 | `entra-infra-ts` | TypeScript (MCP SDK) | Infrastructure: managed identity, WIF, CA, secrets |
 
 ## Custom Agents

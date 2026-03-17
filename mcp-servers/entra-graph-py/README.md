@@ -45,6 +45,34 @@ Live tools for coding agents to manage Entra identities via Microsoft Graph.
 | `entra_create_agent_identity` | Provision agent from blueprint | Yes (confirmation) |
 | `entra_get_agent_token` | Token exchange (autonomous/OBO) | No |
 
+### Identity Governance Tools
+| Tool | Description | Write? |
+|------|-------------|--------|
+| `entra_list_access_reviews` | List access review definitions | No |
+| `entra_create_access_review` | Create access review | Yes (confirmation) |
+| `entra_list_access_packages` | List entitlement access packages | No |
+| `entra_list_lifecycle_workflows` | List lifecycle workflows | No |
+| `entra_list_pim_role_assignments` | List eligible PIM roles | No |
+| `entra_activate_pim_role` | Activate PIM role | Yes (confirmation) |
+
+### ID Protection & Auth Methods Tools
+| Tool | Description | Write? |
+|------|-------------|--------|
+| `entra_list_risk_detections` | List risk detections | No |
+| `entra_confirm_user_compromised` | Confirm user compromised | Yes (confirmation) |
+| `entra_dismiss_user_risk` | Dismiss user risk | Yes (confirmation) |
+| `entra_list_risky_service_principals` | List risky service principals | No |
+| `entra_list_user_auth_methods` | List user auth methods | No |
+| `entra_create_temporary_access_pass` | Create TAP for user | Yes (confirmation) |
+
+### Workload Identity Tools
+| Tool | Description | Write? |
+|------|-------------|--------|
+| `entra_list_service_principals` | Search/filter service principals | No |
+| `entra_get_sp_permissions` | SP permissions inventory | No |
+| `entra_find_stale_service_principals` | Find inactive SPs | No |
+| `entra_workload_identity_posture` | Workload identity posture scan | No |
+
 ## Auth
 
 - `azure-identity` `DefaultAzureCredential` (dev: Azure CLI, prod: managed identity)
