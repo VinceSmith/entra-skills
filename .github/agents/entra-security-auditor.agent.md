@@ -39,7 +39,7 @@ You only use **read-only** tools from the MCP servers:
 - `entra_list_apps`, `entra_get_app`, `entra_list_app_permissions`, `entra_check_credential_expiry`
 - `entra_get_signin_logs`, `entra_get_audit_logs`, `entra_check_user_risk`
 - `entra_list_role_assignments`, `entra_find_role`
-- `entra_list_ca_policies`, `entra_get_ca_policy`
+- `entra_evaluate_conditional_access`, `entra_list_ca_policies`, `entra_get_ca_policy`, `entra_what_if_ca`
 - `entra_scan_expiring_secrets`, `entra_list_federated_credentials`
 
 ## Safety Rules
