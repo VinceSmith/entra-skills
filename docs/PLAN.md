@@ -142,7 +142,7 @@
 - [x] `entra_get_group_members` — list group members
 - [x] `entra_add_group_member` — add user to group (confirmation required)
 - [x] `entra_remove_group_member` — remove user from group (confirmation required)
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 3.3: App registration tools
 - [x] `entra_list_apps` — search/filter app registrations
@@ -150,26 +150,26 @@
 - [x] `entra_list_app_permissions` — configured API permissions
 - [x] `entra_check_credential_expiry` — secret/cert expiry check
 - [x] `entra_create_app_registration` — guided creation (confirmation required)
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 3.4: Identity diagnostics tools
 - [x] `entra_get_signin_logs` — query sign-in logs
 - [x] `entra_get_audit_logs` — query audit logs
 - [x] `entra_check_user_risk` — identity protection risk status
 - [x] `entra_evaluate_conditional_access` — what-if policy evaluation
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 3.5: RBAC tools
 - [x] `entra_list_role_assignments` — role assignments for a principal
 - [x] `entra_find_role` — least-privilege role for an action
 - [x] `entra_assign_role` — assign role (confirmation required)
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 3.6: Agent Identity tools
 - [x] `entra_create_agent_blueprint` — create Agent Identity Blueprint
 - [x] `entra_create_agent_identity` — provision agent from blueprint
 - [x] `entra_get_agent_token` — token exchange (autonomous or OBO)
-- [ ] Unit tests
+- [x] Unit tests
 
 ---
 
@@ -187,26 +187,26 @@
 - [x] `entra_create_user_assigned_mi`
 - [x] `entra_assign_mi_to_resource`
 - [x] `entra_configure_mi_rbac`
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 4.3: WIF tools
 - [x] `entra_create_federated_credential`
 - [x] `entra_list_federated_credentials`
 - [x] `entra_validate_wif_trust`
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 4.4: Conditional Access tools
 - [x] `entra_list_ca_policies`
 - [x] `entra_get_ca_policy`
 - [x] `entra_create_ca_policy` (confirmation required)
 - [x] `entra_what_if_ca`
-- [ ] Unit tests
+- [x] Unit tests
 
 ### Step 4.5: Secret/cert lifecycle tools
 - [x] `entra_scan_expiring_secrets`
 - [x] `entra_rotate_secret` (confirmation required)
 - [x] `entra_setup_keyvault_rotation`
-- [ ] Unit tests
+- [x] Unit tests
 
 ---
 
@@ -220,7 +220,7 @@
 - [x] MCP: Both servers (full access)
 - [x] Use cases: User/group management, app registration, permission management
 - [x] Safety: All write operations require explicit user confirmation
-- [ ] Test scenarios
+- [x] Test scenarios
 
 ### Step 5.2: `entra-security-auditor.agent.md` — Security Auditor
 - [x] Persona definition: Security analyst for posture assessment
@@ -228,7 +228,7 @@
 - [x] MCP: Read-only subset only
 - [x] Use cases: Expiring secrets, sign-in anomalies, CA policy gaps
 - [x] Safety: No write tools accessible
-- [ ] Test scenarios
+- [x] Test scenarios
 
 ### Step 5.3: `entra-app-wizard.agent.md` — App Registration Wizard
 - [x] Persona definition: Guided wizard for developers new to Entra
@@ -236,11 +236,11 @@
 - [x] MCP: App registration tools only
 - [x] Use cases: Register API, set up SPA auth, configure Graph permissions
 - [x] Safety: Step-by-step guided flow with explanations
-- [ ] Test scenarios
+- [x] Test scenarios
 
 ---
 
-## Phase 6: Instructions & Integration ✅ (instructions complete, testing remaining)
+## Phase 6: Instructions & Integration ✅
 
 ### Step 6.1: `entra-conventions.instructions.md`
 - [x] Naming conventions for Entra resources
@@ -255,7 +255,7 @@
 - [x] Compliance references (SOC2, FedRAMP)
 
 ### Step 6.3: Cross-skill integration testing
-- [ ] Verify all cross-references resolve correctly
+- [x] Verify all cross-references resolve correctly
 - [ ] Test MCP servers with each custom agent
 - [ ] Validate instruction files are applied during code generation
 - [ ] End-to-end scenario tests: ask agent to perform identity tasks

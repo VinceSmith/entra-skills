@@ -13,7 +13,7 @@ from fastmcp import FastMCP
 
 mcp = FastMCP(
     "Entra Graph MCP Server",
-    description="Microsoft Entra identity management via Microsoft Graph API",
+    instructions="Microsoft Entra identity management via Microsoft Graph API",
 )
 
 ENTRA_MCP_MODE = os.environ.get("ENTRA_MCP_MODE", "read-only")

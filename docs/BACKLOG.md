@@ -64,10 +64,9 @@ See [PLAN.md](PLAN.md) for the phased delivery plan with full task checklists.
 
 | ID | Task | Priority | Notes |
 |----|------|----------|-------|
-| P6-3 | Integration testing | Medium | Test MCP servers with agents, validate cross-refs |
-| UT-1 | Python MCP unit tests | Medium | pytest mocks for Graph SDK calls |
-| UT-2 | TypeScript MCP unit tests | Medium | vitest mocks for az CLI calls |
-| TS-1 | Agent test scenarios | Low | Manual test scripts per agent persona |
+| E2E-1 | Test MCP servers with each custom agent | Medium | Manual E2E with live tenant |
+| E2E-2 | Validate instructions during code gen | Medium | Verify applyTo patterns work |
+| E2E-3 | End-to-end scenario tests | Medium | Use agent-test-scenarios.md |
 
 ## Summary
 
@@ -75,6 +74,9 @@ See [PLAN.md](PLAN.md) for the phased delivery plan with full task checklists.
 - **14 skills** covering all Entra identity domains
 - **3 custom agents** with distinct personas and access levels
 - **2 instruction files** for conventions and security guardrails
+- **51 unit tests** passing (38 pytest + 13 vitest)
+- **12 agent test scenarios** documented
+- **All cross-references validated** — 0 broken links
 
 ## Open Questions
 
