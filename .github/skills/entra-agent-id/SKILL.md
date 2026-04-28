@@ -149,6 +149,89 @@ If implementing idempotent scripts, check for and create the BlueprintPrincipal
 even when the Blueprint already exists (a previous run may have created the Blueprint
 but crashed before creating the SP).
 
+### Discover: List & Find Existing Blueprints
+
+> **⚠️ Footgun:** Blueprints are stored as `application` objects but **do NOT
+> appear in the default `/applications` collection**. A query like
+> `GET /applications?$filter=displayName eq 'my-blueprint'` returns an empty
+> `value` array — silently — even when the blueprint exists. You must use the
+> derived-type cast collection.
+
+```bash
+# List ALL blueprints in the tenant
+GET https://graph.microsoft.com/beta/applications/microsoft.graph.agentIdentityBlueprint
+
+# Find one by displayName (filter works on the cast collection)
+GET https://graph.microsoft.com/beta/applications/microsoft.graph.agentIdentityBlueprint?$filter=displayName eq 'my-blueprint'
+
+# Get a single blueprint by object id (cast not required for direct GET by id)
+GET https://graph.microsoft.com/beta/applications/{blueprint-object-id}
+```
+
+```powershell
+# PowerShell + az CLI
+$res = az rest --method GET `
+  --url "https://graph.microsoft.com/beta/applications/microsoft.graph.agentIdentityBlueprint" `
+  --headers "OData-Version=4.0" -o json | ConvertFrom-Json
+$res.value | Select-Object displayName, appId, id
+```
+
+### Update a Blueprint (PATCH)
+
+Used for adding `requiredResourceAccess` (delegated/app permission scopes the
+agent will request), updating `identifierUris`, tags, etc. PATCH targets the
+plain `/applications/{id}` URL — the type cast is **not** required on the
+resource segment, but the body should still include the `@odata.type`
+discriminator for any nested complex types when the property requires it.
+
+```python
+# Example: add Microsoft Graph User.Read delegated permission to a blueprint
+GRAPH_APP_ID    = "00000003-0000-0000-c000-000000000000"
+USER_READ_SCOPE = "e1fe6dd8-ba31-4d61-89e7-88639da4683d"  # delegated
+
+# 1. GET current requiredResourceAccess so you don't clobber existing entries
+existing = requests.get(
+    f"{GRAPH}/applications/{blueprint_obj_id}?$select=requiredResourceAccess",
+    headers=headers,
+).json()
+rra = existing.get("requiredResourceAccess", [])
+
+# 2. Merge the new scope into the Microsoft Graph entry
+graph_entry = next((r for r in rra if r["resourceAppId"] == GRAPH_APP_ID), None)
+if graph_entry is None:
+    rra.append({
+        "resourceAppId": GRAPH_APP_ID,
+        "resourceAccess": [{"id": USER_READ_SCOPE, "type": "Scope"}],
+    })
+else:
+    if not any(a["id"] == USER_READ_SCOPE for a in graph_entry["resourceAccess"]):
+        graph_entry["resourceAccess"].append({"id": USER_READ_SCOPE, "type": "Scope"})
+
+# 3. PATCH back (whole array — Graph replaces, doesn't merge)
+requests.patch(
+    f"{GRAPH}/applications/{blueprint_obj_id}",
+    headers=headers,
+    json={"requiredResourceAccess": rra},
+).raise_for_status()
+```
+
+> **PATCH replaces, doesn't merge.** Always GET → mutate → PATCH the full
+> `requiredResourceAccess` array. Sending only the new entry will wipe everything else.
+
+After PATCHing, the **agent identity SP** still needs an `oauth2PermissionGrant`
+for the new scope to actually issue tokens (see Best Practice #10).
+
+`type` values inside `resourceAccess`:
+- `"Scope"` → delegated permission
+- `"Role"` → application permission
+
+Find scope/role IDs:
+```bash
+# Delegated (oauth2PermissionScopes) and app (appRoles) on the target API's SP
+az ad sp show --id 00000003-0000-0000-c000-000000000000 \
+  --query "{delegated: oauth2PermissionScopes[?value=='User.Read'].id, app: appRoles[?value=='User.Read.All'].id}"
+```
+
 ### Step 3: Create Agent Identities
 
 ```python
@@ -170,6 +253,10 @@ agent = resp.json()
 | Operation | Method | Endpoint | OData Type |
 |-----------|--------|----------|------------|
 | Create Blueprint | `POST` | `/applications` | `Microsoft.Graph.AgentIdentityBlueprint` |
+| List Blueprints | `GET` | `/applications/microsoft.graph.agentIdentityBlueprint` | (type cast required — plain `/applications` returns empty) |
+| Find Blueprint by name | `GET` | `/applications/microsoft.graph.agentIdentityBlueprint?$filter=displayName eq '...'` | (filter only works on cast collection) |
+| Get Blueprint by id | `GET` | `/applications/{id}` | — |
+| Update Blueprint (perms, URIs, tags) | `PATCH` | `/applications/{id}` | — (PATCH replaces arrays — GET → mutate → PATCH) |
 | Create BlueprintPrincipal | `POST` | `/servicePrincipals` | `Microsoft.Graph.AgentIdentityBlueprintPrincipal` |
 | Create Agent Identity | `POST` | `/servicePrincipals` | `Microsoft.Graph.AgentIdentity` |
 | List Agent Identities | `GET` | `/servicePrincipals?$filter=...` | — |
